@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3lK-hD-ZMh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3lK-hD-ZMh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -37,14 +37,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCharacters" translatesAutoresizingMaskIntoConstraints="NO" id="qEB-7T-5A3">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="96" width="414" height="683"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9YC-Fe-cBY">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="146" width="414" height="633"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CharacterTableViewCell" rowHeight="126" id="uNh-5v-kN7" customClass="CharacterTableViewCell" customModule="iOSTakeHomeChallenge" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="126"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="126"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uNh-5v-kN7" id="AE2-ee-X9I">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="126"/>
@@ -143,6 +143,13 @@
                                     <outlet property="dataSource" destination="dZF-lQ-UsK" id="lUg-Hq-r3E"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c8e-ZU-L22" customClass="SearchBarView" customModule="iOSTakeHomeChallenge" customModuleProvider="target">
+                                <rect key="frame" x="20" y="96" width="374" height="42"/>
+                                <color key="backgroundColor" red="0.66274509803921566" green="0.66274509803921566" blue="0.66274509803921566" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="wrh-uL-Bwd"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BeD-f8-Mi4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -151,20 +158,24 @@
                             <constraint firstItem="qEB-7T-5A3" firstAttribute="top" secondItem="BeD-f8-Mi4" secondAttribute="top" id="5Nf-cC-fm1"/>
                             <constraint firstItem="BeD-f8-Mi4" firstAttribute="trailing" secondItem="9YC-Fe-cBY" secondAttribute="trailing" id="8Qs-Dj-rqh"/>
                             <constraint firstItem="BeD-f8-Mi4" firstAttribute="bottom" secondItem="qEB-7T-5A3" secondAttribute="bottom" id="CKj-MK-3Ja"/>
+                            <constraint firstItem="BeD-f8-Mi4" firstAttribute="top" secondItem="c8e-ZU-L22" secondAttribute="top" id="CWH-2X-laf"/>
                             <constraint firstItem="BeD-f8-Mi4" firstAttribute="bottom" secondItem="9YC-Fe-cBY" secondAttribute="bottom" id="J3g-VM-BKP"/>
+                            <constraint firstItem="c8e-ZU-L22" firstAttribute="leading" secondItem="BeD-f8-Mi4" secondAttribute="leading" constant="20" id="P2C-K9-RBZ"/>
+                            <constraint firstItem="BeD-f8-Mi4" firstAttribute="trailing" secondItem="c8e-ZU-L22" secondAttribute="trailing" constant="20" id="PQ8-IL-VEy"/>
                             <constraint firstItem="BeD-f8-Mi4" firstAttribute="trailing" secondItem="qEB-7T-5A3" secondAttribute="trailing" id="Qe3-he-qZK"/>
+                            <constraint firstItem="9YC-Fe-cBY" firstAttribute="top" secondItem="c8e-ZU-L22" secondAttribute="top" constant="50" id="aZ0-81-K9G"/>
                             <constraint firstItem="qEB-7T-5A3" firstAttribute="leading" secondItem="BeD-f8-Mi4" secondAttribute="leading" id="dGZ-xC-0rs"/>
-                            <constraint firstItem="9YC-Fe-cBY" firstAttribute="top" secondItem="BeD-f8-Mi4" secondAttribute="top" id="wcR-7a-FWB"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Characters" image="tabbarCharacters" selectedImage="tabbarCharactersActive" id="7K3-9A-uXX"/>
                     <connections>
+                        <outlet property="searchBar" destination="c8e-ZU-L22" id="zNB-s0-XHV"/>
                         <outlet property="tableView" destination="9YC-Fe-cBY" id="ZLn-Kf-aHA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kKE-II-lOZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="55" y="274"/>
+            <point key="canvasLocation" x="53.623188405797109" y="273.88392857142856"/>
         </scene>
     </scenes>
     <resources>

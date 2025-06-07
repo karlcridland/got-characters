@@ -16,6 +16,14 @@ class CharacterManager {
         self.getCharacters()
     }
     
+    func search(query: String?) {
+        var results = self.cachedCharacters
+        if let query = query?.lowercased() {
+            results = self.cachedCharacters.filter({$0.name.lowercased().contains(query)})
+        }
+        self.onUpdate?(results)
+    }
+    
     func getCharacters() {
         var request = URLRequest(url: URL(string: "https://yj8ke8qonl.execute-api.eu-west-1.amazonaws.com/characters")!)
         request.httpMethod = "GET"

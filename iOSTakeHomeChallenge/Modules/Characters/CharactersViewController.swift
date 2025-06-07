@@ -5,6 +5,7 @@ import UIKit
 
 class CharactersViewController: UIViewController, UITableViewDataSource {
     
+    @IBOutlet weak var searchBar: SearchBarView!
     @IBOutlet var tableView: UITableView!
     
     let manager: CharacterManager = CharacterManager()
@@ -14,6 +15,7 @@ class CharactersViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .dark
+        self.searchBar.onValueChange = self.manager.search(query:)
         self.manager.onUpdate = { [weak self] characters in
             self?.loadData(characters: characters)
         }
