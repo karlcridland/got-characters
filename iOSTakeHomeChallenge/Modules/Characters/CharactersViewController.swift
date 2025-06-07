@@ -4,6 +4,7 @@ import Foundation
 import UIKit
 
 class CharactersViewController: UIViewController, UITableViewDataSource {
+    
     @IBOutlet var tableView: UITableView!
 
     var cachedCharacters: [Character] = []
@@ -24,12 +25,20 @@ class CharactersViewController: UIViewController, UITableViewDataSource {
         ]
         let task = URLSession(configuration: config)
             .dataTask(with: request, completionHandler: { data, response, error in
-                if error != nil {
-                    print("Oops")
+                if let error = error {
+                    print("Error fetching characters: \(error)")
                 }
-
-                let characters = try! JSONDecoder().decode([Character].self, from: data!)
-                self.loadData(characters: characters)
+                else {
+                    do {
+                        let characters = try JSONDecoder().decode([Character].self, from: data!)
+                        DispatchQueue.main.async { [weak self] in
+                            self?.loadData(characters: characters)
+                        }
+                    }
+                    catch {
+                        print("Error decoding characters: \(error)")
+                    }
+                }
 
             })
         task.resume()
