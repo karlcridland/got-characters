@@ -22,6 +22,11 @@ class SearchBarView: UIView {
         self.layer.cornerRadius = 8
         self.layer.cornerCurve = .continuous
         self.textField.addTarget(self, action: #selector(self.update), for: .allEditingEvents)
+        
+        self.textField.attributedPlaceholder = NSAttributedString(
+            string: "Search",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.8)]
+        )
     }
     
     @objc func update() {
