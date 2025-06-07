@@ -8,33 +8,30 @@ class CharactersViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var searchBar: SearchBarView!
     @IBOutlet var tableView: UITableView!
     
-    let manager: CharacterManager = CharacterManager()
-    
-    var characters: [Character] = []
+    private let viewModel = CharactersViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .dark
-        self.searchBar.onValueChange = self.manager.search(query:)
-        self.manager.onUpdate = { [weak self] characters in
-            self?.loadData(characters: characters)
+        
+        self.tableView.dataSource = self
+        
+        self.viewModel.onUpdate = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
         }
-    }
 
-    func loadData(characters: [Character]) {
-        self.characters = characters
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-        }
+        self.searchBar.onValueChange = self.viewModel.search(query:)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.characters.count
+        self.viewModel.characters.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterTableViewCell") as! CharacterTableViewCell
-        cell.setupWith(character: self.characters[indexPath.row])
+        cell.setupWith(character: self.viewModel.characters[indexPath.row])
         return cell
     }
     

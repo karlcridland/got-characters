@@ -10,7 +10,9 @@ import Foundation
 class CharacterManager {
     
     var cachedCharacters: [Character] = []
+    
     var onUpdate: (([Character]) -> Void)?
+    var onError: ((Error) -> Void)?
     
     init() {
         self.getCharacters()
@@ -33,26 +35,33 @@ class CharacterManager {
         config.httpAdditionalHeaders = ["Authorization": "Bearer 754t!si@glcE2qmOFEcN"]
         
         let task = URLSession(configuration: config)
-            .dataTask(with: request, completionHandler: { data, response, error in
+            .dataTask(with: request, completionHandler: { [weak self] data, response, error in
                 if let error = error {
-                    print("Error fetching characters: \(error)")
+                    self?.onError?(error)
+                    return
                 }
-                else {
-                    do {
-                        let characters = try JSONDecoder().decode([Character].self, from: data!)
-                        DispatchQueue.main.async { [weak self] in
-                            self?.cachedCharacters = characters
-                            self?.onUpdate?(characters)
-                        }
-                    }
-                    catch {
-                        print("Error decoding characters: \(error)")
+                guard let data = data else {
+                    let error = NSError(domain: "CharacterManager", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])
+                    self?.onError?(error)
+                    return
+                }
+                do {
+                    try self?.handle(data: data)
+                } catch {
+                    DispatchQueue.main.async {
+                        self?.onError?(error)
                     }
                 }
             })
         task.resume()
-        
+    }
+    
+    func handle(data: Data) throws {
+        let characters = try JSONDecoder().decode([Character].self, from: data)
+        DispatchQueue.main.async {
+            self.cachedCharacters = characters
+            self.onUpdate?(characters)
+        }
     }
     
 }
-
